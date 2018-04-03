@@ -1,5 +1,6 @@
 <template>
   <header ref="header">
+    <nav></nav>
     <h1>HELLO ;</h1>
     <h3>This is my awesome cover fuckers!</h3>
     <a @click=goDown><i class="fas fa-angle-down"></i></a>
@@ -17,6 +18,15 @@
   }
 </script>
 <style>
+nav {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  left: 0;
+  width: 100%;
+  height: 75px;
+  background: rgba(0,0,0,.5);
+}
 header {
   background-image: url('~@/assets/smoke.png');
   background-color: rgba(12,3,3,.9);

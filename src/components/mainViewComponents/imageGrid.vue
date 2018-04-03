@@ -8,13 +8,13 @@
               <span class="icon">
                 <i class="fas fa-heart"></i>
               </span>
-              <span class="number">post.likes</span>
+              <span class="number">{{post.likes}}</span>
             </div>
             <div class="counter">
               <span class="icon">
                 <i class="fas fa-comment"></i>
               </span>
-              <span class="number">post.comments.length</span>
+              <span class="number">{{post.comments.length}}</span>
             </div>
           </div>
         </div>
