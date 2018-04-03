@@ -27,13 +27,13 @@
 <style scoped>
 main {
   margin: 15px 0;
+  min-height: calc(100vh - 30px);
 }
 .images-container {
   display: grid;
   grid-gap: 15px;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 300px 300px 300px;
-
+  grid-auto-rows: 40vh;
 }
 .icon {
     cursor: pointer;

@@ -12,6 +12,16 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Oxygen:300,400,700');
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,.5);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(12,3,3,.9);
+}
 * {
   font-family: 'Oxygen', sans-serif;
   margin: 0;
@@ -37,6 +47,15 @@ button {
   cursor: pointer;
   transition: .2s;
   box-shadow: 3px 2px 7px rgb(0, 0, 0);
+}
+button.circle {
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
 }
 button:active {
   box-shadow: 6px 4px 10px rgb(0, 0, 0);
