@@ -1,54 +1,100 @@
 <template>
   <main>
-      <section class="cover">
-          <h1>Picfolio</h1>
-          <img src="~@/assets/login-image.jpg" alt="login-image">
-          <h3>The most awesome designers portfolios site.</h3>
+    <section class="cover">
+      <h1>Picfolio</h1>
+      <img src="~@/assets/login-image.jpg" alt="login-image">
+      <h3>The most awesome designers portfolios site.</h3>
+  </section>
+  <section class="form">
+    <div class="tabs" ref="tabs">
+      <a href="#" @click="selectTab" class="tab-item">
+        login
+      </a>
+      <a href="#" @click="selectTab" class="tab-item">
+        register
+      </a>
+      <div class="line" ref="line"></div>
+    </div>
+    <section class="tab-items" ref="tabItems">
+        <div class="tab-item-cont">
+          <form ref="login">
+            <text-field 
+              placeholder="Type your awesome text here."
+              v-model="loginUsername"
+              title="username"
+            ></text-field>
+            <text-field 
+              placeholder="Type your password here."
+              v-model="loginPassword"
+              type="password"
+              title="PASSWORD"
+            ></text-field>
+            <btn text="send" color="#0097e6"></btn>
+          </form>
+        </div>
+        <div class="tab-item-cont">
+          <form ref="Register">
+            <text-field 
+              placeholder="Type your email here."
+              v-model="registerEmail"
+              title="email"
+            ></text-field>
+            <text-field 
+              placeholder="Type your awesome text here."
+              v-model="registerUsername"
+              title="username"
+            ></text-field>
+            <text-field 
+              placeholder="Type your password here."
+              v-model="registerPassword"
+              type="password"
+              title="PASSWORD"
+            ></text-field>
+            <text-field 
+              placeholder="Confirm password here."
+              v-model="registerConfirmPassword"
+              type="password"
+              title="confirm"
+            ></text-field>
+            <btn text="send" color="#0097e6"></btn>
+          </form>
+        </div>
       </section>
-      <section class="form">
-          <div class="tabs" ref="tabs">
-              <a href="#" @click="selectTab" class="tab-item active">
-                login
-              </a>
-              <a href="#" @click="selectTab" class="tab-item">
-                register
-              </a>
-              <div class="line" ref="line"></div>
-          </div>
-          <section class="tab-items" ref="tabItems">
-              <div class="tab-item">
-                  <form ref="login">
-                      <text-field 
-                        placeholder="Type your awesome text here."
-                        v-model="loginUsername"
-                        title="username"
-                      ></text-field>
-                  </form>
-              </div>
-          </section>
-      </section>
+    </section>
   </main>
 </template>
 <script>
-    import TextField from './TextField'
-    export default {
-        components: {TextField},
-        data () {
-            return {
-                loginUsername: null,
-                activeItem: 0
-            }
-        },
-        methods: {
-            selectTab (ev) {
-                $(this.$refs.tabs).children().removeClass('active')
-                $(ev.target).addClass('active')
-                const width = $(ev.target).outerWidth()
-                const left = $(ev.target).position().left
-                $(this.$refs.line).css({width, left})
-            }
-        }
+import TextField from './TextField'
+import Btn from './Button'
+export default {
+  components: {TextField, Btn},
+  data () {
+    return {
+      loginUsername: null,
+      loginPassword: null,
+      registerPassword: null,
+      registerConfirmPassword: null,
+      registerUsername: null,
+      registerEmail: null,
+      activeItem: 0
     }
+},
+methods: {
+  selectTab (ev) {
+      $(this.$refs.tabs).children().removeClass('active')
+      $(ev.target).addClass('active')
+      const index = $(ev.target).index()
+      $(this.$refs.tabItems).children().removeClass('active')
+      this.$refs.tabItems.children[index].classList.add('active')
+      const width = $(ev.target).outerWidth()
+      const left = $(ev.target).position().left
+      $(this.$refs.line).css({width, left})
+    }
+  },
+  mounted () {
+    this.$refs.tabs.children[0].click()
+  }
+}
 </script>
 <style scoped>
     .tabs {
@@ -56,6 +102,25 @@
         text-transform: uppercase;
         display: flex;
         position: relative;
+    }
+    .tab-items {
+      position: relative;
+      width: 100%;
+    }
+    .tab-item-cont {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transition-delay: 0s, .2s;
+      transition-duration: .5s, .3s;
+      transition-property: transform, opacity;
+      transform: scale(0);
+    }
+    .tab-item-cont.active {
+      opacity: 1;
+      transform: scale(1);
     }
     .tab-item {
         font-weight: 500;
