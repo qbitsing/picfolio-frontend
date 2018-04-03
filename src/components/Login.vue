@@ -7,10 +7,10 @@
   </section>
   <section class="form">
     <div class="tabs" ref="tabs">
-      <a href="#" @click="selectTab" class="tab-item">
+      <a @click="selectTab" class="tab-item">
         login
       </a>
-      <a href="#" @click="selectTab" class="tab-item">
+      <a @click="selectTab" class="tab-item">
         register
       </a>
       <div class="line" ref="line"></div>
@@ -29,7 +29,7 @@
               type="password"
               title="PASSWORD"
             ></text-field>
-            <btn text="send" color="#0097e6"></btn>
+            <button class="primary" @click=login>send</button>
           </form>
         </div>
         <div class="tab-item-cont">
@@ -56,7 +56,7 @@
               type="password"
               title="confirm"
             ></text-field>
-            <btn text="send" color="#0097e6"></btn>
+            <button class="primary">send</button>
           </form>
         </div>
       </section>
@@ -65,9 +65,8 @@
 </template>
 <script>
 import TextField from './TextField'
-import Btn from './Button'
 export default {
-  components: {TextField, Btn},
+  components: {TextField},
   data () {
     return {
       loginUsername: null,
@@ -81,6 +80,7 @@ export default {
 },
 methods: {
   selectTab (ev) {
+      ev.preventDefault()
       $(this.$refs.tabs).children().removeClass('active')
       $(ev.target).addClass('active')
       const index = $(ev.target).index()
@@ -89,6 +89,10 @@ methods: {
       const width = $(ev.target).outerWidth()
       const left = $(ev.target).position().left
       $(this.$refs.line).css({width, left})
+    },
+    login (ev) {
+      ev.preventDefault()
+      this.$router.push('/profile')
     }
   },
   mounted () {
