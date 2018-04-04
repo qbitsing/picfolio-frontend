@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <p-header></p-header>
+      <p-header :user=session></p-header>
       <image-grid :posts=posts></image-grid>
   </div>
 </template>
@@ -11,6 +11,7 @@ export default {
   components: {PHeader, ImageGrid},
   data () {
     return {
+      session: null,
       posts: [
         {
           id: 1,
@@ -29,7 +30,7 @@ export default {
   },
   created () {
     try {
-      atob(localStorage.getItem(session))
+      this.session = decrypt('session')
     } catch (e) {
       this.$router.push('/')
     }

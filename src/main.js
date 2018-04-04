@@ -7,6 +7,7 @@ import {store} from './store'
 import jquery from 'jquery'
 
 window.$ = jquery
+window.decrypt = (key) => JSON.parse(atob(localStorage.getItem(key)))
 
 Vue.config.productionTip = false
 

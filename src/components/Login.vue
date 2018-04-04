@@ -56,7 +56,7 @@
               type="password"
               title="confirm"
             ></text-field>
-            <button class="primary">send</button>
+            <button @click="register" class="primary">send</button>
           </form>
         </div>
       </section>
@@ -107,10 +107,37 @@ methods: {
         alert('Credenciales incorrectos')
         this.loginPassword = null
       }
+    },
+    async register(ev) {
+      ev.preventDefault()
+      if (this.registerPassword === this.registerConfirmPassword) {
+        const body = {
+          email: this.registerEmail,
+          password: this.registerPassword,
+          name: this.registerName
+        }
+        let response = await http('register', 'POST', body)
+        response = await response.json()
+        console.log(response)
+        if(response.status === 400) {
+          alert('El correo ya ha sido tomado')
+        } else {
+          const session = btoa(JSON.stringify(response))
+          localStorage.setItem('session', session)
+          this.$router.push('/profile')
+          this.registerEmail = null
+        }
+      } else alert('las contraseñas no coinciden')
     }
   },
   mounted () {
     this.$refs.tabs.children[0].click()
+  },
+  created () {
+    try {
+      decrypt('session')
+      this.$router.push('/profile')
+    } catch(e) {}
   }
 }
 </script>
