@@ -20,7 +20,7 @@
           <form ref="login">
             <text-field 
               placeholder="Type your awesome text here."
-              v-model="loginUsername"
+              v-model="loginEmail"
               title="username"
             ></text-field>
             <text-field 
@@ -40,9 +40,9 @@
               title="email"
             ></text-field>
             <text-field 
-              placeholder="Type your awesome text here."
-              v-model="registerUsername"
-              title="username"
+              placeholder="Type your name here."
+              v-model="registerName"
+              title="name"
             ></text-field>
             <text-field 
               placeholder="Type your password here."
@@ -65,15 +65,16 @@
 </template>
 <script>
 import TextField from './TextField'
+import http from '@/utils/http'
 export default {
   components: {TextField},
   data () {
     return {
-      loginUsername: null,
+      loginEmail: null,
       loginPassword: null,
       registerPassword: null,
       registerConfirmPassword: null,
-      registerUsername: null,
+      registerName: null,
       registerEmail: null,
       activeItem: 0
     }
@@ -90,9 +91,22 @@ methods: {
       const left = $(ev.target).position().left
       $(this.$refs.line).css({width, left})
     },
-    login (ev) {
+    async login (ev) {
       ev.preventDefault()
-      this.$router.push('/profile')
+      let body = {
+        email: this.loginEmail,
+        password: this.loginPassword
+      }
+      let response = await http('login', 'POST', body)
+      response = await response.json()
+      if (response) {
+        const session = btoa(JSON.stringify(response))
+        localStorage.setItem('session', session)
+        this.$router.push('/profile')
+      } else {
+        alert('Credenciales incorrectos')
+        this.loginPassword = null
+      }
     }
   },
   mounted () {

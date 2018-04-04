@@ -26,6 +26,13 @@ export default {
         }
       ]
     }
+  },
+  created () {
+    try {
+      atob(localStorage.getItem(session))
+    } catch (e) {
+      this.$router.push('/')
+    }
   }
 }
 </script>
