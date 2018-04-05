@@ -18,14 +18,53 @@
             </div>
           </div>
         </div>
-        <img :src="post.imageURL">
+        <img :src="post.image">
       </div>
     </div>
-    <h2 v-else>Aún no hay posts!</h2>
+    <h2 class="no-posts" v-else>
+      <i class="fas fa-exclamation-triangle"></i>
+      Aún no hay posts!
+      </h2>
     <modal :state=modalState @close="modalState = false">
-      <div slot="content">
-        <h1>Hola, soy el contenido</h1>
-      </div>
+      <section class="content" slot="content">
+        <div class="image-cont">
+            <img src="" id="modalImage">
+        </div>
+        <div class="info">
+            <div class="user-data">
+                <div class="profile">
+                    <img src="" alt="">
+                    <a href="">Nicolás Arias</a>
+                </div>
+                <a href="" class="follow">Follow</a>
+            </div>
+            <div class="comments">
+                <p><a href="#" class="username">name_1</a> I was the first comment!</p>
+                <p><a href="#" class="username">name_2</a> Awesome coment</p>
+                <p><a href="#" class="username">name_3</a> Shut up please</p>
+            </div>
+            <div class="actions">
+                <div class="icons">
+                    <div>
+                        <span class="icon">
+                            <i class="far fa-heart"></i>
+                        </span>
+                        <span class="icon">
+                            <i class="far fa-comment"></i>
+                        </span>
+                    </div>
+                    <span class="icon">
+                        <i class="far fa-bookmark"></i>
+                    </span>
+                </div>
+                <a class="number">12 me gusta.</a>
+                <span class="date">16 de Marzo</span>
+            </div>
+            <div class="make-comment">
+                <input placeholder="Type a comment." type="text">
+            </div>
+          </div>
+      </section>
     </modal>
   </main>
 </template>
@@ -48,8 +87,109 @@
 </script>
 <style scoped>
 main {
-  margin: 15px 0;
-  min-height: calc(100vh - 30px);
+  padding: 15px 0;
+}
+.content>.image-cont {
+  background: black;
+  display: flex;
+  align-items: center;
+}
+.make-comment input {
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border: 0;
+  padding: 16px 13px;
+}
+.content>.image-cont img{
+  width: 100%;
+}
+.info {
+  color: black;
+  position: relative;
+  padding: 10px 20px;
+}
+.info a {
+  color: #222;
+  font-weight: bold;
+}
+.info .user-data{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 7px;
+  border-bottom: .6px solid #ccc;
+}
+.profile {
+  display: flex;
+  align-items: center;
+}
+.profile img {
+  background: rebeccapurple;
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+.info .user-data .follow {
+  background: #00a8ff;
+  align-self: flex-end;
+  color: #fff;
+  padding: 6px;
+  font-weight: 400;
+  border-radius: 3px;
+}
+.comments {
+  padding: 15px 0;
+  border-bottom: .6px solid #ccc;
+  height: 55%;
+}
+.comments p {
+  margin-bottom: 12px;
+}
+.actions {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+}
+.actions .icons {
+  display: flex;
+  justify-content: space-between;
+  font-size: 25px;
+}
+.actions .number {
+  margin: 10px 0;
+}
+.actions .date {
+  text-transform: uppercase;
+  color: #999;
+  font-size: 14px;
+}
+.make-comment {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding-top: 10px;
+  width: 100%;
+  border-top: .8px solid #ccc;
+}
+.content {
+  width: 950px;
+  max-width: 90%;
+  height: 550px;
+  max-height: 85vh;
+  overflow: hidden;
+  border-radius: 4px;
+  display: grid;
+  background: white;
+  transition-duration: .3s, .5s;
+  transition-property: opacity, transform;
+  grid-template-columns: 1fr 400px;
+}
+.no-posts {
+  color: blue;
+  text-align: center;
+  padding: 40px;
 }
 .images-container {
   display: grid;

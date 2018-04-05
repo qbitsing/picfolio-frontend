@@ -1,9 +1,11 @@
 <template>
   <div class="modal" :class="active ? 'active' : ''">
       <div class="wrap"></div>
-      <a @click=close><i class="fas fa-times"></i></a>
-      <div class="content">
-          <slot name="content"/>
+      <a @click=close class="close"><i class="fas fa-times"></i></a>
+      <div class="m-cont">
+          <div>
+            <slot name="content"/>
+          </div>
       </div>
   </div>
 </template>
@@ -22,7 +24,7 @@
         }
     }
 </script>
-<style>
+<style scoped>
     .modal {
         position: fixed;
         top: 0;
@@ -30,8 +32,39 @@
         width: 100%;
         z-index: -10;
         height: 100vh;
+        opacity: 0;
+        transform: scale(0);
+        transition: .5s;
+    }
+    .modal .close {
+        z-index: 10;
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 35px;
+        margin: 20px;
+    }
+    .m-cont {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .wrap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,.9);
     }
     .modal.active {
-        z-index: 10;
+        opacity: 1;
+        transform: scale(1);
+        z-index: 10000;
     }
 </style>
