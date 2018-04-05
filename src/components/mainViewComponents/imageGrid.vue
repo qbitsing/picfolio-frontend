@@ -1,7 +1,7 @@
 <template>
   <main>
     <div v-if="posts.length" class="images-container">
-      <div class="image" v-for="post in posts" :key=post.id>
+      <div class="image" v-for="post in posts" @click="selectImage(post)" :key=post.id>
         <div class="overlay">
           <div class="cont">
             <div class="counter">
@@ -24,6 +24,16 @@
     <h2 v-else>Aún no hay posts!</h2>
   </main>
 </template>
+<script>
+    export default {
+      methods: {
+        selectImage(post) {
+          this.$emit('select', post)
+        }
+      },
+      props: ['posts']
+    }
+</script>
 <style scoped>
 main {
   margin: 15px 0;
@@ -80,8 +90,3 @@ main {
     height: 100%;
 }
 </style>
-<script>
-    export default {
-      props: ['posts']
-    }
-</script>

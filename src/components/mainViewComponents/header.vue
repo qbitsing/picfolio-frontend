@@ -1,7 +1,7 @@
 <template>
   <header ref="header">
     <img src="~@/assets/smoke.png" class="image-cover">
-    <a  class="logout">
+    <a @click="logout" class="logout">
       <i class="fas fa-sign-out-alt"></i>
       Logout
     </a>

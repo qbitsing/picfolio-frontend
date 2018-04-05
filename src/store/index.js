@@ -7,11 +7,11 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    layout: 'login'
+    modal: false
   },
   mutations: {
-    SET_LAYOUT (store, payload) {
-      store.layout = payload
+    MODAL_TOGGLE (store, payload) {
+      store.modal = !store.modal
     }
   }
 
