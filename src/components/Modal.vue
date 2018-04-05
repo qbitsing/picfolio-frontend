@@ -15,22 +15,9 @@
                 return this.state
             }
         },
-        computed: {
-            inputListeners: function () {
-            var vm = this
-            return Object.assign({},
-            this.$listeners,
-            {
-                input: function (event) {
-                vm.$emit('input', event.target.value)
-                }
-            }
-            )
-            }
-        },
         methods: {
             close () {
-                this.state = false
+                this.$emit('close')
             }
         }
     }

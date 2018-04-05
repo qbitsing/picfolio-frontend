@@ -1,29 +1,16 @@
 <template>
   <div class="container">
       <p-header :user=session></p-header>
-      <image-grid @select="showModal" :posts=posts></image-grid>
-      <modal :state=modalState>
-        <div slot="content">
-          <h1>Hola, soy el contenido</h1>
-        </div>
-      </modal>
+      <image-grid :posts=posts></image-grid>
   </div>
 </template>
 <script>
 import PHeader from './mainViewComponents/header'
 import ImageGrid from './mainViewComponents/imageGrid'
-import Modal from './Modal'
 export default {
-  components: {PHeader, ImageGrid, Modal},
-  methods: {
-    showModal (ev) {
-      console.log(ev)
-      this.modalState = true
-    }
-  },
+  components: {PHeader, ImageGrid},
   data () {
     return {
-      modalState: false,
       session: null,
       posts: [
         {

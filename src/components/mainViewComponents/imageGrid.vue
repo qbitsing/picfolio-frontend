@@ -22,14 +22,26 @@
       </div>
     </div>
     <h2 v-else>Aún no hay posts!</h2>
+    <modal :state=modalState @close="modalState = false">
+      <div slot="content">
+        <h1>Hola, soy el contenido</h1>
+      </div>
+    </modal>
   </main>
 </template>
 <script>
+    import Modal from './../Modal'
     export default {
+      data () {
+        return {
+          modalState: false
+        }
+      },
+      components: {Modal},
       methods: {
         selectImage(post) {
-          this.$emit('select', post)
-        }
+          this.modalState = true
+        },
       },
       props: ['posts']
     }
