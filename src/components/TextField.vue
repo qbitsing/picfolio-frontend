@@ -1,7 +1,7 @@
 <template>
   <div class="text-field">
         <label>
-            {{title}}
+            {{title || ''}}
             <div class="text-box">
                 <input :type="type || 'text'" :placeholder="placeholder" v-on="inputListeners" :value="value">
                 <div class="big line"></div>

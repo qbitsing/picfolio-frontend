@@ -16,12 +16,38 @@
       <i class="fas fa-camera"></i>
       Upload photo
     </button>
+    <modal :state=modalState @close=closeModal>
+      <section slot="content" class="content">
+        <div class="image-cont">
+          <img :src=selectedImage >
+        </div>
+        <div class="desc">
+          <h2>Descripción.</h2>
+          <text-field placeholder="Añade una descripción."></text-field>
+        </div>
+        <div class="actions">
+          <button class="primary">SEND</button>
+        </div>
+      </section>
+    </modal>
   </header>
 </template>
 <script>
+  import TextField from './../TextField'
+  import Modal from './../Modal'
   export default {
+    components: {Modal, TextField},
     props: ['user'],
+    data () {
+      return {
+        selectedImage: null,
+        modalState: false
+      }
+    },
     methods: {
+      closeModal () {
+        this.modalState = false
+      },
       async pick(ev) {
         const fr = new FileReader()
         const result = () => new Promise((rs, rj) =>{
@@ -35,8 +61,8 @@
           }
         })
         fr.readAsDataURL(this.$refs.file.files[0])
-        let base64 = await result()
-        console.log(base64)
+        this.selectedImage = await result()
+        this.modalState = true
       },
       goDown() {
         window.$('html,body').animate({
@@ -51,6 +77,13 @@
   }
 </script>
 <style scoped>
+.content {
+  width: 500px;
+  max-width: 80%;
+}
+.content img {
+  width: 100%;
+}
 .logout {
   position: fixed;
   color: #999;

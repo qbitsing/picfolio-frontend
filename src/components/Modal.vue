@@ -1,5 +1,5 @@
 <template>
-  <div class="modal" :class="active ? 'active' : ''">
+  <div class="modal" :class="state ? 'active' : ''">
       <div class="wrap"></div>
       <a @click=close class="close"><i class="fas fa-times"></i></a>
       <div class="m-cont">
@@ -12,11 +12,6 @@
 <script>
     export default {
         props: ['state'],
-        computed: {
-            active () {
-                return this.state
-            }
-        },
         methods: {
             close () {
                 this.$emit('close')
@@ -60,7 +55,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0,0,0,.9);
+        background: rgba(7, 7, 15, 0.884);
     }
     .modal.active {
         opacity: 1;

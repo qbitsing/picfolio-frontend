@@ -26,22 +26,21 @@
       Aún no hay posts!
       </h2>
     <modal :state=modalState @close="modalState = false">
-      <section class="content" slot="content">
+      <section v-if="selectedPost" class="content" slot="content">
         <div class="image-cont">
-            <img src="" id="modalImage">
+            <img :src=selectedPost.image id="modalImage">
         </div>
         <div class="info">
             <div class="user-data">
                 <div class="profile">
-                    <img src="" alt="">
-                    <a href="">Nicolás Arias</a>
+                    <a href="">{{userdata.name}}</a>
                 </div>
                 <a href="" class="follow">Follow</a>
             </div>
             <div class="comments">
-                <p><a href="#" class="username">name_1</a> I was the first comment!</p>
-                <p><a href="#" class="username">name_2</a> Awesome coment</p>
-                <p><a href="#" class="username">name_3</a> Shut up please</p>
+                <p v-for="comment in selectedPost.comments" :key="comment.id">
+                  <a @click="$router.push(`user/${comment.user.id}`)" class="username">{{comment.user.name}}</a> {{comment.comment}}
+                </p>
             </div>
             <div class="actions">
                 <div class="icons">
@@ -57,7 +56,7 @@
                         <i class="far fa-bookmark"></i>
                     </span>
                 </div>
-                <a class="number">12 me gusta.</a>
+                <a class="number">{{selectedPost.likes}} me gusta.</a>
                 <span class="date">16 de Marzo</span>
             </div>
             <div class="make-comment">
@@ -73,16 +72,18 @@
     export default {
       data () {
         return {
-          modalState: false
+          modalState: false,
+          selectedPost: null
         }
       },
       components: {Modal},
       methods: {
         selectImage(post) {
+          this.selectedPost = post
           this.modalState = true
         },
       },
-      props: ['posts']
+      props: ['posts', 'userdata']
     }
 </script>
 <style scoped>
@@ -169,7 +170,7 @@ main {
   position: absolute;
   bottom: 0;
   left: 0;
-  padding-top: 10px;
+  padding-top: 4px;
   width: 100%;
   border-top: .8px solid #ccc;
 }

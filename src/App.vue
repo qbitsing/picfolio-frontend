@@ -66,6 +66,10 @@ button.block { width: 100% }
   background: #0097e6;
   color: #fff;
 }
+.error {
+  background: tomato;
+  color: #fff;
+}
 .primary:hover {
   background: #029df0;
 }

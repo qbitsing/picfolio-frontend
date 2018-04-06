@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       <p-header :user=session></p-header>
-      <image-grid :posts=posts></image-grid>
+      <image-grid :userdata=session :posts=posts></image-grid>
   </div>
 </template>
 <script>
