@@ -7,11 +7,11 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    modal: false
+    posts: []
   },
   mutations: {
-    MODAL_TOGGLE (store, payload) {
-      store.modal = !store.modal
+    SET_POSTS (store, payload) {
+      store.posts = payload
     }
   }
 

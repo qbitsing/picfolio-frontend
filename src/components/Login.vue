@@ -66,8 +66,9 @@
 <script>
 import TextField from './TextField'
 import http from '@/utils/http'
+import LoaderButton from './LoaderButton'
 export default {
-  components: {TextField},
+  components: {TextField, LoaderButton},
   data () {
     return {
       loginEmail: null,

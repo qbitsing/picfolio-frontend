@@ -1,7 +1,7 @@
 <template>
   <main>
     <div v-if="posts.length" class="images-container">
-      <div class="image" v-for="post in bindPosts" @click="selectImage(post)" :key=post.id>
+      <div class="image" v-for="post in posts" @click="selectImage(post)" :key=post.id>
         <div class="overlay">
           <div class="cont">
             <div class="counter">
@@ -71,12 +71,9 @@
 <script>
     import Modal from './../Modal'
     import http  from '@/utils/http'
+    import {mapState} from 'vuex'
     export default {
-      computed : {
-        bindPosts () {
-          return this.posts || []
-        }
-      },
+      computed: mapState(['posts']),
       data () {
         return {
           modalState: false,
@@ -88,21 +85,27 @@
       methods: {
         selectImage(post) {
           this.selectedPost = post
+          this.selectedPost.comments
           this.modalState = true
         },
         async comentar() {
-          const body = {
+          let body = {
             user_id: this.userdata.id,
             post_id: this.selectedPost.id,
             comment: this.textComment
           }
           let res = await http('comments', 'POST', body)
           res = await res.json()
-          console.log(res)
+          this.textComment = null
+          body.user = this.userdata
+          this.selectedPost.comments.push(body)
+          this.posts.forEach(e => {
+            if (e.id == body.post_id) e.push(body)
+          })
           alert('comentario guardado')
         }
       },
-      props: ['posts', 'userdata']
+      props: ['userdata']
     }
 </script>
 <style scoped>
