@@ -23,10 +23,10 @@
         </div>
         <div class="desc">
           <h2>Descripción.</h2>
-          <text-field placeholder="Añade una descripción."></text-field>
+          <text-field v-model=description placeholder="Añade una descripción."></text-field>
         </div>
         <div class="actions">
-          <button class="primary">SEND</button>
+          <loader-button :loading=loading @click=post text="POST IT!"></loader-button>
         </div>
       </section>
     </modal>
@@ -34,19 +34,40 @@
 </template>
 <script>
   import TextField from './../TextField'
+  import LoaderButton from './../LoaderButton'
   import Modal from './../Modal'
+  import http from '@/utils/http'
   export default {
-    components: {Modal, TextField},
+    components: {Modal, TextField, LoaderButton},
     props: ['user'],
+    created () {
+      this.session = decrypt('session')
+    },
     data () {
       return {
         selectedImage: null,
-        modalState: false
+        modalState: false,
+        description: null,
+        loading: false,
+        session: {}
       }
     },
     methods: {
       closeModal () {
         this.modalState = false
+      },
+      async post() {
+        this.loading = true
+        const body = {
+          user_id: this.session.id,
+          image: this.selectedImage,
+          description: this.description
+        }
+        let res = await http('posts', 'POST', body)
+        res = await res.json()
+        this.loading = false
+        this.modalState = false
+        console.log(res)
       },
       async pick(ev) {
         const fr = new FileReader()
@@ -62,6 +83,7 @@
         })
         fr.readAsDataURL(this.$refs.file.files[0])
         this.selectedImage = await result()
+        console.log(this.selectedImage)
         this.modalState = true
       },
       goDown() {

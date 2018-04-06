@@ -22,8 +22,6 @@ export default {
       let posts = await http(`user/${this.session.id}/posts`)
       posts = await posts.json()
       this.posts = posts.data.posts
-      console.log(this.posts)
-
     } catch (e) {
       this.$router.push('/')
     }

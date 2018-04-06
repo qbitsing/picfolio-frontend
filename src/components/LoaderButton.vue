@@ -1,5 +1,5 @@
 <template>
-  <a :class="loading ? 'loader' : ''" @click=clicked>
+  <a :class="loading ? 'loading bt' : 'bt'" @click=clicked>
     <span class="text">{{text}}</span>
     <div class="loader">
       <div class="circle c1"></div>
@@ -9,26 +9,36 @@
   </a>
 </template>
 <style scoped>
-  a {
+  .bt {
     background: #0097e6;
     padding: 10px;
-    min-width: 80px;
-    display: inline-block;
+    display: flex;
     text-align: center;
     text-transform: uppercase;
     box-shadow: 3px 2px 7px rgb(0, 0, 0);
     position: relative;
-    height: 20px;
+    height: 35px;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
     text-decoration: none;
+    transition: .3s;
   }
-  a.loader .loader {
-    display: flex;
+  .bt:hover {
+    background: #029df0;
   }
-  a.loader .text {
-    display: none;
+  .bt:active {
+    box-shadow: 6px 4px 10px rgb(0, 0, 0);
+    transform: scale(.95)
+  }
+  a.loading .loader {
+    opacity: 1;
+  }
+  a.loading .text {
+    opacity: 0;  
+  }
+  a .text {
+    transition: .2s;
   }
   a .loader {
     position: absolute;
@@ -37,13 +47,15 @@
     right: 0;
     bottom: 0;
     align-items: center;
-    display: none;
+    display: flex;
+    transition: .3s;
+    opacity: 0;
     justify-content: center;
 }
 a .loader .circle {
     border-radius: 50%;
-    width: 7px;
-    height: 7px;
+    width: 10px;
+    height: 10px;
     background: #fff;
     margin: 4px;
   }
@@ -59,7 +71,7 @@ a .loader .circle {
   @keyframes circle {
     0% { transform: scale(0) }
     30% { transform: scale(0) }
-    65% {transform: scale(1.5)}
+    65% {transform: scale(1)}
     100% { transform: scale(0) }
   }
 </style>
