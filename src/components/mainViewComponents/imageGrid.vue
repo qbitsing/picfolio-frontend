@@ -1,7 +1,7 @@
 <template>
   <main>
     <div v-if="posts.length" class="images-container">
-      <div class="image" v-for="post in posts" @click="selectImage(post)" :key=post.id>
+      <div class="image" v-for="post in bindPosts" @click="selectImage(post)" :key=post.id>
         <div class="overlay">
           <div class="cont">
             <div class="counter">
@@ -34,6 +34,7 @@
             <div class="user-data">
                 <div class="profile">
                     <a href="">{{userdata.name}}</a>
+                    <p>{{selectedPost.description}}</p>
                 </div>
                 <a href="" class="follow">Follow</a>
             </div>
@@ -60,7 +61,7 @@
                 <span class="date">16 de Marzo</span>
             </div>
             <div class="make-comment">
-                <input placeholder="Type a comment." type="text">
+                <input @keyup.enter=comentar v-model=textComment placeholder="Type a comment." type="text">
             </div>
           </div>
       </section>
@@ -69,10 +70,17 @@
 </template>
 <script>
     import Modal from './../Modal'
+    import http  from '@/utils/http'
     export default {
+      computed : {
+        bindPosts () {
+          return this.posts || []
+        }
+      },
       data () {
         return {
           modalState: false,
+          textComment: null,
           selectedPost: null
         }
       },
@@ -82,6 +90,17 @@
           this.selectedPost = post
           this.modalState = true
         },
+        async comentar() {
+          const body = {
+            user_id: this.userdata.id,
+            post_id: this.selectedPost.id,
+            comment: this.textComment
+          }
+          let res = await http('comments', 'POST', body)
+          res = await res.json()
+          console.log(res)
+          alert('comentario guardado')
+        }
       },
       props: ['posts', 'userdata']
     }
@@ -123,14 +142,12 @@ main {
 }
 .profile {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
-.profile img {
-  background: rebeccapurple;
-  width: 35px;
-  height: 35px;
-  margin-right: 10px;
-  border-radius: 50%;
+.profile p {
+  margin-top: 10px;
+  color: #666;
 }
 .info .user-data .follow {
   background: #00a8ff;
@@ -143,7 +160,8 @@ main {
 .comments {
   padding: 15px 0;
   border-bottom: .6px solid #ccc;
-  height: 55%;
+  height: 50%;
+  min-height: 20%;
 }
 .comments p {
   margin-bottom: 12px;

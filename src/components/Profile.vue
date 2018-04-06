@@ -21,7 +21,7 @@ export default {
       this.session = decrypt('session')
       let posts = await http(`user/${this.session.id}/posts`)
       posts = await posts.json()
-      this.posts = posts.data.posts
+      this.posts = posts.data.posts.reverse()
     } catch (e) {
       this.$router.push('/')
     }
