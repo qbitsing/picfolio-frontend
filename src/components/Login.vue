@@ -1,21 +1,21 @@
 <template>
-  <main>
-    <section class="cover">
+  <main class="row">
+    <section class="col hide-on-med-and-down s6 cover z-depth-4">
       <h1>Picfolio</h1>
       <img src="~@/assets/login-image.jpg" alt="login-image">
-      <h3>The most awesome designers portfolios site.</h3>
-  </section>
-  <section class="form">
-    <div class="tabs" ref="tabs">
-      <a @click="selectTab" class="tab-item">
-        login
-      </a>
-      <a @click="selectTab" class="tab-item">
-        register
-      </a>
-      <div class="line" ref="line"></div>
-    </div>
-    <section class="tab-items" ref="tabItems">
+      <h5>The most awesome designers portfolios site.</h5>
+    </section>
+    <section class="col m12 l6 form">
+      <div class="tabs" ref="tabs">
+        <a @click="selectTab" class="tab-item">
+          login
+        </a>
+        <a @click="selectTab" class="tab-item">
+          register
+        </a>
+        <div class="line" ref="line"></div>
+      </div>
+      <section class="tab-items" ref="tabItems">            
         <div class="tab-item-cont">
           <form ref="login">
             <text-field 
@@ -37,6 +37,7 @@
             <text-field 
               placeholder="Type your email here."
               v-model="registerEmail"
+              type="email"
               title="email"
             ></text-field>
             <text-field 
@@ -158,6 +159,7 @@ methods: {
       top: 0;
       left: 0;
       width: 100%;
+      padding-top: 20px;
       opacity: 0;
       transition-delay: 0s, .2s;
       transition-duration: .5s, .3s;
@@ -186,19 +188,18 @@ methods: {
         left: 0;
         position: absolute;
     }
-    main {
-        display: flex;
-    }
     .cover {
         background: #e74e39;
-        box-shadow: 5px 1px 18px #000;
+        /* box-shadow: 3px 1px 12px #000; */
         z-index: 10;
-        width: 50%;
         height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
+    .row {
+      margin: 0 !important;
     }
     h1 {
         text-transform: uppercase;
@@ -210,17 +211,21 @@ methods: {
         margin: 25px;
     }
     .form {
+      height: 100vh;
         padding: 50px;
         background: #0f243d;
-        width: 50%;
-        height: 100vh;
     }
     @media (max-width: 880px) {
-        .cover {
-            display: none;
-        }
-        .form {
-            width: 100%;
-        }
+      .cover {
+          display: none;
+      }
+      .form {
+          width: 100%;
+      }
+    }
+    @media (max-width: 450px) {
+      .form {
+        padding: 20px;
+      }
     }
 </style>

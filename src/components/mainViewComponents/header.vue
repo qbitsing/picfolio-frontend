@@ -37,9 +37,11 @@
   import LoaderButton from './../LoaderButton'
   import Modal from './../Modal'
   import http from '@/utils/http'
+  import {mapState} from 'vuex'
   export default {
     components: {Modal, TextField, LoaderButton},
     props: ['user'],
+    computed: mapState(['posts']),
     created () {
       this.session = decrypt('session')
     },
@@ -58,16 +60,18 @@
       },
       async post() {
         this.loading = true
-        const body = {
+        let body = {
           user_id: this.session.id,
           image: this.selectedImage,
           description: this.description
         }
         let res = await http('posts', 'POST', body)
         res = await res.json()
+        res.comments = []
+        this.posts.unshift(res)
         this.loading = false
         this.modalState = false
-        console.log(res)
+        
       },
       async pick(ev) {
         const fr = new FileReader()
@@ -83,7 +87,6 @@
         })
         fr.readAsDataURL(this.$refs.file.files[0])
         this.selectedImage = await result()
-        console.log(this.selectedImage)
         this.modalState = true
       },
       goDown() {

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
       <p-header :user=session></p-header>
       <image-grid :userdata=session></image-grid>
   </div>
