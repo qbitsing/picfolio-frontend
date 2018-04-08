@@ -1,5 +1,5 @@
 <template>
-  <div class="modal" :class="state ? 'active' : ''">
+  <div class="modali" :class="state ? 'active' : ''">
       <div class="wrap"></div>
       <a @click=close class="close"><i class="fas fa-times"></i></a>
       <div class="m-cont">
@@ -20,7 +20,7 @@
     }
 </script>
 <style scoped>
-    .modal {
+    .modali {
         position: fixed;
         top: 0;
         left: 0;
@@ -31,7 +31,7 @@
         transform: scale(0);
         transition: .5s;
     }
-    .modal .close {
+    .modali .close {
         z-index: 10;
         position: absolute;
         top: 0;
@@ -57,7 +57,7 @@
         bottom: 0;
         background: rgba(7, 7, 15, 0.884);
     }
-    .modal.active {
+    .modali.active {
         opacity: 1;
         transform: scale(1);
         z-index: 10000;

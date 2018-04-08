@@ -84,25 +84,27 @@
       components: {Modal},
       methods: {
         selectImage(post) {
+          console.log('select')
           this.selectedPost = post
           this.selectedPost.comments
           this.modalState = true
         },
         async comentar() {
-          let body = {
-            user_id: this.userdata.id,
-            post_id: this.selectedPost.id,
-            comment: this.textComment
+          if(this.textComment) {
+            let body = {
+              user_id: this.userdata.id,
+              post_id: this.selectedPost.id,
+              comment: this.textComment
+            }
+            let res = await http('comments', 'POST', body)
+            res = await res.json()
+            this.textComment = null
+            body.user = this.userdata
+            this.selectedPost.comments.push(body)
+            this.posts.forEach(e => {
+              if (e.id == body.post_id) e.push(body)
+            })
           }
-          let res = await http('comments', 'POST', body)
-          res = await res.json()
-          this.textComment = null
-          body.user = this.userdata
-          this.selectedPost.comments.push(body)
-          this.posts.forEach(e => {
-            if (e.id == body.post_id) e.push(body)
-          })
-          alert('comentario guardado')
         }
       },
       props: ['userdata']
@@ -122,7 +124,11 @@ main {
   outline: none;
   font-size: 16px;
   border: 0;
-  padding: 16px 13px;
+  padding: 0px 13px;
+  box-sizing: border-box;
+}
+.make-comment input:focus {
+  border: 0;
 }
 .content>.image-cont img{
   width: 100%;

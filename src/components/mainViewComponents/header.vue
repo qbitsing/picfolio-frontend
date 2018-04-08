@@ -22,7 +22,7 @@
           <img :src=selectedImage >
         </div>
         <div class="desc">
-          <h2>Descripción.</h2>
+          <h3>Descripción.</h3>
           <text-field v-model=description placeholder="Añade una descripción."></text-field>
         </div>
         <div class="actions">
@@ -63,8 +63,9 @@
         let body = {
           user_id: this.session.id,
           image: this.selectedImage,
-          description: this.description
+          description: this.description || ''
         }
+        console.log(body)
         let res = await http('posts', 'POST', body)
         res = await res.json()
         res.comments = []
