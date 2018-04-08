@@ -23,6 +23,7 @@
     .modali {
         position: fixed;
         top: 0;
+        overflow-y: scroll;
         left: 0;
         width: 100%;
         z-index: -10;

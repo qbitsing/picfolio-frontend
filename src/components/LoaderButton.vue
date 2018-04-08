@@ -1,5 +1,5 @@
 <template>
-  <a :class="loading ? 'loading bt' : 'bt'" @click=clicked>
+  <a :class="loading ? 'loading my-bt' : 'my-bt'" @click=clicked>
     <span class="text">{{text}}</span>
     <div class="loader">
       <div class="circle c1"></div>
@@ -9,9 +9,10 @@
   </a>
 </template>
 <style scoped>
-  .bt {
+  .my-bt {
     background: #0097e6;
     padding: 10px;
+    color: #fff;
     display: flex;
     text-align: center;
     text-transform: uppercase;
@@ -24,10 +25,10 @@
     text-decoration: none;
     transition: .3s;
   }
-  .bt:hover {
+  .my-bt:hover {
     background: #029df0;
   }
-  .bt:active {
+  .my-bt:active {
     box-shadow: 6px 4px 10px rgb(0, 0, 0);
     transform: scale(.95)
   }

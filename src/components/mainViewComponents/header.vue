@@ -65,11 +65,11 @@
           image: this.selectedImage,
           description: this.description || ''
         }
-        console.log(body)
         let res = await http('posts', 'POST', body)
         res = await res.json()
         res.comments = []
         this.posts.unshift(res)
+        this.description = null
         this.loading = false
         this.modalState = false
         
