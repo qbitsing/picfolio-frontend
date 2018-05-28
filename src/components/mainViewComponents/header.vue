@@ -87,7 +87,12 @@
           }
         })
         fr.readAsDataURL(this.$refs.file.files[0])
-        this.selectedImage = await result()
+        const base64 = await result()
+        let res = await http('upload', 'POST', {
+          base64
+        })
+        res = await res.json()
+        this.selectedImage = 'http://localhost:8000'+res.url
         this.modalState = true
       },
       goDown() {
